@@ -1,0 +1,19 @@
+.container {
+  @apply flex flex-col justify-center items-center;
+}
+
+.content {
+  @apply flex flex-col w-full px-4 gap-2;
+}
+
+.card {
+  @apply flex flex-1 flex-col bg-white border border-gray-300 rounded-lg shadow-lg p-4 gap-2;
+}
+
+.heading {
+  @apply text-2xl font-bold;
+}
+
+.divider {
+  @apply border-gray-400;
+}

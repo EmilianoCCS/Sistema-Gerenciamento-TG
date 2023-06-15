@@ -1,0 +1,15 @@
+.container {
+  @apply flex justify-center items-center bg-gray-500 border border-gray-500 rounded-lg px-3 py-2 transition-colors duration-300 gap-2;
+}
+
+.container:hover {
+  @apply text-gray-300 bg-gray-600 border-gray-600;
+}
+
+.buttonText {
+  @apply text-white font-semibold;
+}
+
+.avatar {
+  @apply max-h-8 rounded-full;
+}

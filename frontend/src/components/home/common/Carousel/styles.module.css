@@ -1,0 +1,23 @@
+.container {
+  @apply flex flex-col w-full max-w-[740px] pt-12 px-8 pb-8 rounded border border-[#fdfafa40] shadow-lg shadow-[#fdfafa40] gap-6;
+}
+
+.content {
+  @apply w-full;
+}
+
+.itemText {
+  @apply text-white text-justify;
+}
+
+.footer {
+  @apply flex flex-1 justify-center align-middle gap-2;
+}
+
+.dot {
+  @apply bg-white w-14 h-1;
+}
+
+.dotActive {
+  @apply bg-gray-100 opacity-25 cursor-pointer;
+}

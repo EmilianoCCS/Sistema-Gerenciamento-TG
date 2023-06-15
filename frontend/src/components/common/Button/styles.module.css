@@ -1,0 +1,47 @@
+.default {
+  @apply flex flex-1 min-w-[100px] font-medium px-3 py-2 justify-center items-center rounded transition-colors duration-300;
+}
+
+.default:disabled {
+  @apply bg-gray-400 border-gray-400 cursor-not-allowed
+}
+
+.primary {
+  @apply text-white bg-[#2c3e50] border border-[#2c3e50];
+}
+
+.primary:hover {
+  @apply text-gray-300 bg-[#303D4E] border-[#303D4E];
+}
+
+.secondary {
+  @apply text-white bg-yellow-500 border border-yellow-500;
+}
+
+.secondary:hover {
+  @apply text-gray-300 bg-yellow-700 border-yellow-700;
+}
+
+.outline {
+  @apply text-white border-2 border-white;
+}
+
+.outline:hover {
+  @apply text-gray-300 border-gray-300;
+}
+
+.success {
+  @apply text-green-600 border-2 border-green-600;
+}
+
+.success:hover {
+  @apply text-green-700 border-green-700;
+}
+
+.cancel {
+  @apply text-red-500 border-2 border-red-500;
+}
+
+.cancel:hover {
+  @apply text-red-600 border-red-600;
+}

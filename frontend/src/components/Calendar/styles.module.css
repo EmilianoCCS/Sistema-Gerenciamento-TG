@@ -1,0 +1,60 @@
+.container {
+  @apply flex flex-col bg-gray-200 rounded p-6 gap-6;
+}
+
+.header {
+  @apply flex justify-between items-center;
+}
+
+.title {
+  @apply text-xl text-gray-700 font-medium capitalize;
+}
+
+.title span {
+  @apply text-[#4ca1af] font-medium;
+}
+
+.actions {
+  @apply flex gap-2;
+}
+
+.actions button {
+  @apply bg-gray-100 rounded cursor-pointer p-2;
+}
+
+.actions button:focus {
+  @apply shadow shadow-gray-400;
+}
+
+.body {
+  @apply w-full border-spacing-1 table-fixed;
+}
+
+.body thead th {
+  @apply text-center;
+}
+
+.body tbody::before {
+  @apply block h-6;
+  content: '';
+}
+
+.body td {
+  @apply text-center;
+}
+
+.day {
+  @apply w-full text-center bg-gray-100 aspect-square rounded-sm cursor-pointer transition-all duration-300 ease-in-out;
+}
+
+.day:disabled {
+  @apply bg-none cursor-default opacity-40;
+}
+
+.day:not(:disabled):hover {
+  @apply bg-[#4ca1af] text-white;
+}
+
+.day:focus {
+  @apply shadow shadow-gray-400;
+}

@@ -1,0 +1,7 @@
+.container {
+  @apply flex items-center gap-2;
+}
+
+.label {
+  @apply text-sm text-gray-700;
+}

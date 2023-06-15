@@ -1,0 +1,35 @@
+.container {
+  @apply flex rounded border border-gray-200;
+}
+
+.container:focus-within {
+  @apply border-blue-500;
+}
+
+.containerError {
+  @apply border-red-500;
+}
+
+.containerDisabled {
+  @apply border-gray-400;
+}
+
+.icon {
+  @apply w-12 flex justify-center items-center bg-gray-200;
+}
+
+.iconLeft {
+  @apply rounded-tl rounded-bl;
+}
+
+.iconRight {
+  @apply rounded-tr rounded-br;
+}
+
+.input {
+  @apply w-full bg-white text-gray-900 p-2 rounded outline-0;
+}
+
+.input:disabled {
+  @apply bg-gray-300;
+}

@@ -1,0 +1,31 @@
+.container {
+  @apply flex flex-row justify-center items-center;
+}
+
+.content {
+  @apply flex flex-col w-full max-w-[660px] p-12 rounded border border-[#fdfafa40] shadow-lg shadow-[#fdfafa40] gap-4;
+}
+
+.title {
+  @apply text-white text-2xl font-bold;
+}
+
+.form {
+  @apply flex flex-col gap-2;
+}
+
+.formControl {
+  @apply flex flex-col gap-1;
+}
+
+.label {
+  @apply text-white font-medium;
+}
+
+.messageError {
+  @apply text-red-500 text-sm;
+}
+
+.buttonContainer {
+  @apply flex flex-1 max-w-[120px];
+}

@@ -1,0 +1,40 @@
+.wrapper {
+  @apply flex flex-1 flex-col justify-center items-center gap-4;
+}
+
+.header {
+  @apply flex flex-1 flex-col justify-center items-center gap-2;
+}
+
+.heading {
+  @apply text-2xl text-gray-700 font-medium;
+}
+
+.subtitle {
+  @apply text-gray-700;
+}
+
+
+.buttonActions {
+  @apply flex w-32 gap-4;
+}
+
+.buttonInvitesActions {
+  @apply flex w-64 gap-4;
+}
+
+.card {
+  @apply flex w-full justify-between items-center px-4 py-3 border border-gray-300 rounded;
+}
+
+.cardInfo {
+  @apply flex flex-col gap-1;
+}
+
+.groupTheme {
+  @apply text-xl font-semibold;
+}
+
+.groupSummary {
+  @apply text-sm;
+}

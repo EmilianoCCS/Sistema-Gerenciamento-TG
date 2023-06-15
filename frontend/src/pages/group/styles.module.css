@@ -1,0 +1,55 @@
+.container {
+  @apply flex flex-col justify-center items-center;
+}
+
+.card {
+  @apply w-[700px] bg-slate-50 m-2.5 rounded gap-4;
+}
+
+.cardHeader {
+  @apply p-4 bg-gray-200 border-b border-b-gray-300 rounded-t;
+}
+
+.heading {
+  @apply text-2xl font-medium;
+}
+
+.subtitle {
+  @apply text-xl font-medium;
+}
+
+.cardBody {
+  @apply flex flex-col p-4 gap-4;
+}
+
+.formControl {
+  @apply flex flex-col gap-1;
+}
+
+.messageError {
+  @apply text-red-500 text-sm;
+}
+
+.messageHelper {
+  @apply text-sm text-gray-400;
+}
+
+.divider {
+  @apply border-gray-300;
+}
+
+.textArea {
+  @apply w-full p-2 border border-gray-300 rounded;
+}
+
+.inputFileContainer {
+  @apply flex flex-col gap-2;
+}
+
+.inputFile {
+  @apply p-2 bg-white border border-gray-300 rounded;
+}
+
+.infoContainer {
+  @apply border p-4 bg-gray-100;
+}

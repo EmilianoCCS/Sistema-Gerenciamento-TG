@@ -1,0 +1,3 @@
+.infoContainer {
+  @apply flex flex-col text-white gap-2;
+}

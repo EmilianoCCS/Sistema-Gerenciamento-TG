@@ -1,0 +1,16 @@
+.container {
+  @apply flex justify-between items-center p-4;
+}
+
+.logo,
+.welcome {
+  @apply text-2xl text-white font-bold;
+}
+
+.nav {
+  @apply flex gap-2;
+}
+
+.buttonContainer {
+  @apply flex w-[120px];
+}

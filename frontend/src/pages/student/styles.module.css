@@ -1,0 +1,75 @@
+.container {
+  @apply flex flex-row justify-center items-center;
+}
+
+.card {
+  @apply w-[700px] bg-slate-50 m-2.5 rounded;
+}
+
+.cardHeader {
+  @apply w-full p-4 bg-gray-200 border-b border-b-gray-300 rounded-t;
+}
+
+.title {
+  @apply text-2xl text-gray-700 font-medium;
+}
+
+.cardBody {
+  @apply flex flex-col p-4 gap-4;
+}
+
+.formControl {
+  @apply flex flex-col gap-1;
+}
+
+.formPart {
+  @apply flex gap-4 items-end;
+}
+
+.iconText {
+  @apply font-medium;
+}
+
+.label {
+  @apply text-gray-700 font-medium;
+}
+
+.labelContainer {
+  @apply flex gap-1;
+}
+
+.labelHelper {
+  @apply text-gray-400;
+}
+
+.messageError {
+  @apply text-red-500 text-sm;
+}
+
+.messageHelper {
+  @apply text-sm text-gray-400;
+}
+
+.footer {
+  @apply flex justify-center items-center p-10;
+}
+
+.footerText {
+  @apply text-white text-sm;
+}
+
+.infoContainer {
+  @apply flex flex-1;
+}
+
+.messageInfo {
+  @apply text-sm text-gray-500;
+}
+
+.checkboxGroup {
+  @apply flex flex-col gap-1;
+}
+
+.divider {
+  @apply border-gray-400;
+}

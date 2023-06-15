@@ -1,0 +1,53 @@
+.wrapper {
+  @apply flex flex-1 flex-col justify-center items-center gap-4;
+}
+
+.headerContainer {
+  @apply flex w-full justify-between items-center gap-4;
+}
+
+.header {
+  @apply flex flex-1 flex-col justify-center items-center gap-2;
+}
+
+.heading {
+  @apply text-2xl text-gray-700 font-medium;
+}
+
+.subtitle {
+  @apply text-gray-700;
+}
+
+.empty,
+.actions {
+  @apply w-32;
+}
+
+.divider {
+  @apply border-gray-300;
+}
+
+
+.teachersList {
+  @apply flex flex-col w-full gap-2;
+}
+
+.teacherItem {
+  @apply flex justify-between items-center border border-gray-300 rounded-md p-2;
+}
+
+.teacherInfo {
+  @apply flex flex-col justify-center items-start gap-1;
+}
+
+.teacherName {
+  @apply text-lg text-gray-700 font-semibold;
+}
+
+.teacherEmail {
+  @apply text-gray-700;
+}
+
+.buttonContainer {
+  @apply flex justify-center items-center gap-2;
+}

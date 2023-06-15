@@ -1,0 +1,63 @@
+.container {
+  @apply flex flex-col justify-center items-center;
+}
+
+.content {
+  @apply flex w-full flex-col px-4 pb-4;
+}
+
+.card {
+  @apply flex flex-1 flex-col bg-white rounded-lg shadow-lg p-2;
+}
+
+.cardHeader {
+  @apply w-full p-4;
+}
+
+.studentInfos {
+  @apply flex flex-col w-full p-4 gap-4;
+}
+
+.studentsContainer {
+  @apply flex flex-col w-full gap-2;
+}
+
+.studentContent {
+  @apply flex flex-col justify-start items-start w-full gap-1;
+}
+
+.studentName {
+  @apply text-lg text-gray-700 font-semibold;
+}
+
+.studentEmail {
+  @apply text-gray-700;
+}
+
+.heading {
+  @apply text-2xl text-gray-700 font-medium;
+}
+
+.subtitle {
+  @apply text-lg text-gray-700 font-medium;
+}
+
+.cardBody {
+  @apply flex flex-col p-4 gap-4;
+}
+
+.infoContainer {
+  @apply flex flex-col px-4 py-3 border border-gray-300 rounded;
+}
+
+.documentInfo {
+  @apply flex flex-col gap-1;
+}
+
+.documentContainer {
+  @apply flex justify-between items-center px-4 py-3 border border-gray-300 rounded;
+}
+
+.documentActions {
+  @apply flex w-64 gap-2;
+}
