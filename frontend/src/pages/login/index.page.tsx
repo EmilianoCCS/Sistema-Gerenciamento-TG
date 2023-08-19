@@ -73,6 +73,16 @@ export default function LoginPage(props: LoginPageProps) {
       } else if (user.isEmailVerified && !user.isProfileCompleted) {
         push(`/student?email=${user.email}`);
       } else {
+        nookies.set(null, constants.USER_PROFILE_TYPE, profileType, {
+          path: '/',
+          maxAge: 86400
+        });
+
+        nookies.set(null, constants.USER_PROFILE, JSON.stringify(profile), {
+          path: '/',
+          maxAge: 86400
+        });
+
         push('/dashboard');
       }
 

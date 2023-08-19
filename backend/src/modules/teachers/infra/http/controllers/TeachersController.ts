@@ -9,9 +9,15 @@ import { ShowTeacherService } from "@modules/teachers/services/ShowTeacherServic
 
 export class TeachersController {
   public async index(request: Request, response: Response): Promise<Response> {
+    const { page = 1, limit = 10, isActivated = true } = request.query;
+
     const listTeachers = container.resolve(ListTeachersService);
 
-    const { teachers } = await listTeachers.execute();
+    const { teachers } = await listTeachers.execute({
+      page: Number(page),
+      limit: Number(limit),
+      isActivated: Boolean(isActivated),
+    });
 
     return response.status(200).json({
       teachers: instanceToPlain(teachers),

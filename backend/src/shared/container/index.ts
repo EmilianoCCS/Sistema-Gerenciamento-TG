@@ -74,6 +74,10 @@ import { GroupTeacherInvitesRepository } from "@modules/groups/infra/typeorm/rep
 import { IJustificationsRepository } from "@modules/groups/repositories/IJustificationsRepository";
 import { JustificationsRepository } from "@modules/groups/infra/typeorm/repositories/JustificationsRepository";
 
+// schedules repositories
+import { ISchedulesRepository } from "@modules/schedules/repositories/ISchedulesRepository";
+import { SchedulesRepository } from "@modules/schedules/infra/typeorm/repositories/SchedulesRepository";
+
 // users register
 container.registerSingleton<IUsersRepository>(
   "UsersRepository",
@@ -174,4 +178,10 @@ container.registerSingleton<IGroupTeacherInvitesRepository>(
 container.registerSingleton<IJustificationsRepository>(
   "JustificationsRepository",
   JustificationsRepository,
+);
+
+// schedules register
+container.registerSingleton<ISchedulesRepository>(
+  "SchedulesRepository",
+  SchedulesRepository,
 );

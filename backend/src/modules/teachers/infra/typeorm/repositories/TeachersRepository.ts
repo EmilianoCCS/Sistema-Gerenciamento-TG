@@ -12,6 +12,7 @@ import { ITeachersRepository } from "@modules/teachers/repositories/ITeachersRep
 
 // entities
 import { TeacherEntity } from "@modules/teachers/infra/typeorm/entities/TeacherEntity";
+import { IPaginateTeachersDTO } from "@modules/teachers/dtos/IPaginateTeachersDTO";
 
 export class TeachersRepository implements ITeachersRepository {
   private repository: Repository<TeacherEntity>;
@@ -48,6 +49,7 @@ export class TeachersRepository implements ITeachersRepository {
         "groupTeacherInvites",
         "groupTeacherInvites.group",
         "groups",
+        "groups.schedule",
       ],
     });
 
@@ -56,6 +58,23 @@ export class TeachersRepository implements ITeachersRepository {
 
   public async findAll(): Promise<TeacherEntity[]> {
     const teachers = await this.repository.find({
+      relations: ["user"],
+    });
+
+    return teachers;
+  }
+
+  public async paginate({
+    page,
+    limit,
+    isActivated,
+  }: IPaginateTeachersDTO): Promise<TeacherEntity[]> {
+    const teachers = await this.repository.find({
+      where: {
+        isActivated,
+      },
+      skip: (page - 1) * limit,
+      take: limit,
       relations: ["user"],
     });
 

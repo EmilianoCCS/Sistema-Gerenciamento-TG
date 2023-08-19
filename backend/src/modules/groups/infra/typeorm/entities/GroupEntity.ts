@@ -22,6 +22,7 @@ import { GroupStudentInviteEntity } from "@modules/groups/infra/typeorm/entities
 import { GroupTeacherInviteEntity } from "@modules/groups/infra/typeorm/entities/GroupTeacherInviteEntity";
 import { JustificationEntity } from "./JustificationEntity";
 import { StudentEntity } from "@modules/students/infra/typeorm/entities/StudentEntity";
+import { ScheduleEntity } from "@modules/schedules/infra/typeorm/entities/ScheduleEntity";
 
 @Entity({ name: "groups" })
 export class GroupEntity {
@@ -114,6 +115,9 @@ export class GroupEntity {
   })
   @Expose({ name: "monographFilename" })
   monographyUrl?: string | null;
+
+  @OneToMany(() => ScheduleEntity, (schedule) => schedule.group)
+  schedule?: ScheduleEntity[];
 
   @Expose({ name: "documentUrl" })
   getDocumentUrl?(): string | null {

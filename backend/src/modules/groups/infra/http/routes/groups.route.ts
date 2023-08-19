@@ -39,6 +39,7 @@ const groupTeacherInviteDeclineController =
 groupsRouter.use("/document", documentsRouter);
 groupsRouter.use("/monograph", monographiesRouter);
 
+groupsRouter.get("/", groupsController.index);
 groupsRouter.post(
   "/",
   ensureAuthenticated,

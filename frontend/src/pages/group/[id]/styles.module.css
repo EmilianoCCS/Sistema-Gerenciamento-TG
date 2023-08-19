@@ -61,3 +61,15 @@
 .documentActions {
   @apply flex w-64 gap-2;
 }
+
+.documentButton {
+  @apply flex w-32 gap-2;
+}
+
+.actionsContainer {
+  @apply flex justify-between items-center px-4 py-3 border border-gray-300 rounded;
+}
+
+.buttonInvitesActions {
+  @apply flex w-64 gap-4;
+}

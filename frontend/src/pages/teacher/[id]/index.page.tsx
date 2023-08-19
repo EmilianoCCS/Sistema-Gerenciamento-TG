@@ -14,33 +14,31 @@ import { Navbar } from "@/components/common/Navbar";
 import { ToggleButton } from "@/components/common/ToggleButton";
 
 import styles from "./styles.module.css";
+import { api } from "@/services/apiClient";
 
 type TeacherDetailsPageProps = {
   teacher: Teacher;
 };
 
 export default function TeacherDetailsPage({ teacher }: TeacherDetailsPageProps) {
-  // const [teacherUser, setTeacherUser] = useState(teacher);
-  // const [isActived, setIsActived] = useState(teacher.isActive);
+  const [teacherUser, setTeacherUser] = useState(teacher);
 
+  const handleToggleActive = async () => {
 
+    if (teacherUser.isActivated) {
+      const response = await api.post(`/teachers/${teacherUser.id}/deactivate`);
 
-  // const handleToggleActive = () => {
-  //   const cookies = parseCookies();
-  //   const teachers = cookies["teachers"];
+      const { teacher: updatedTeacher } = response.data;
 
-  //   const updateTeachers = teachers ? JSON.parse(teachers) : [];
+      setTeacherUser(updatedTeacher);
+    } else {
+      const response = await api.post(`/teachers/${teacherUser.id}/activate`);
 
-  //   const teacherIndex = updateTeachers.findIndex((teacher: any) => Number(teacher.id) === Number(teacherUser.id));
+      const { teacher: updatedTeacher } = response.data;
 
-  //   updateTeachers[teacherIndex].isActive = !updateTeachers[teacherIndex].isActive;
-
-  //   setTeacherUser(updateTeachers[teacherIndex]);
-
-  //   nookies.set(undefined, 'teachers', JSON.stringify(updateTeachers));
-
-  //   setIsActived(!isActived);
-  // }
+      setTeacherUser(updatedTeacher);
+    }
+  }
 
   return (
     <>
@@ -51,22 +49,22 @@ export default function TeacherDetailsPage({ teacher }: TeacherDetailsPageProps)
             <div className="flex w-full justify-between items-center">
               <div className="flex flex-col gap-1">
                 <h2 className={styles.heading}>
-                  {teacher.user.fullName}
+                  {teacherUser.user.fullName}
                 </h2>
                 <span>
-                  {teacher.user.email}
+                  {teacherUser.user.email}
                 </span>
               </div>
 
-              {/* <ToggleButton
+              <ToggleButton
                 id="check"
-                checked={isActived}
+                checked={teacherUser.isActivated}
                 onChange={handleToggleActive}
-              /> */}
+              />
             </div>
           </div>
           <div>
-            {teacher.groups.map(item => (
+            {teacherUser.groups.map(item => (
               <div key={item.id} className={styles.card}>
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1">
@@ -77,53 +75,6 @@ export default function TeacherDetailsPage({ teacher }: TeacherDetailsPageProps)
                       {item.summary}
                     </span>
                   </div>
-
-                  {/* <div className="flex flex-col gap-2">
-                <div className="flex gap-1">
-                  <span className="text-gray-700 font-medium">
-                    Justificativa 1:
-                  </span>
-                  <span className="text-gray-600">
-                    Teste
-                  </span>
-                </div>
-
-                <div className="flex gap-1">
-                  <span className="text-gray-700 font-medium">
-                    Justificativa 2:
-                  </span>
-                  <span className="text-gray-600">
-                    Teste
-                  </span>
-                </div>
-
-                <div className="flex gap-1">
-                  <span className="text-gray-700 font-medium">
-                    Justificativa 3:
-                  </span>
-                  <span className="text-gray-600">
-                    Teste
-                  </span>
-                </div>
-
-                <div className="flex gap-1">
-                  <span className="text-gray-700 font-medium">
-                    Justificativa 4:
-                  </span>
-                  <span className="text-gray-600">
-                    Teste
-                  </span>
-                </div>
-
-                <div className="flex gap-1">
-                  <span className="text-gray-700 font-medium">
-                    Justificativa 5:
-                  </span>
-                  <span className="text-gray-600">
-                    Teste
-                  </span>
-                </div>
-              </div> */}
 
                   <div className="flex flex-col gap-2">
                     <h3 className="text-xl text-gray-700 font-semibold">

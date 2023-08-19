@@ -17,6 +17,7 @@ import { studentsRouter } from "@modules/students/infra/http/routes/students.rou
 import { teachersRouter } from "@modules/teachers/infra/http/routes/teachers.route";
 import { coordinatorsRouter } from "@modules/coordinators/infra/http/routes/coordinators.route";
 import { groupsRouter } from "@modules/groups/infra/http/routes/groups.route";
+import { schedulesRouter } from "@modules/schedules/infra/http/routes/schedules.route";
 
 const routes = Router();
 
@@ -59,5 +60,8 @@ routes.use("/coordinators", coordinatorsRouter);
 
 // groups
 routes.use("/groups", groupsRouter);
+
+// schedules
+routes.use("/schedules", schedulesRouter);
 
 export { routes };

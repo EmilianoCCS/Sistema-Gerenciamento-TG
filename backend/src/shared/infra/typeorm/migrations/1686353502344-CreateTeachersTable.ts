@@ -22,6 +22,11 @@ export class CreateTeachersTable1686353502344 implements MigrationInterface {
             type: "uuid",
           },
           {
+            name: "is_activated",
+            type: "boolean",
+            default: true,
+          },
+          {
             name: "created_at",
             type: "timestamp",
             default: "now()",

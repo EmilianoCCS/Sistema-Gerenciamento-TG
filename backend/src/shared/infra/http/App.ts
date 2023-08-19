@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
 import cors from "cors";
+import { booleanize } from "express-query-booleanizer";
 
 // import swaggerUi from 'swagger-ui-express';
 
@@ -30,6 +31,7 @@ class App {
   private middlewares(): void {
     this.server.use(cors());
     this.server.use(express.json());
+    this.server.use(booleanize());
   }
 
   private routes(): void {

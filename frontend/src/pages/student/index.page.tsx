@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
-import nookies from 'nookies';
+import nookies, { parseCookies } from 'nookies';
 
 import constants from "@/constants";
 
@@ -29,7 +29,10 @@ const studentSchema = z.object({
     .nonempty('Informe seu nome completo'),
   displayName: z.string()
     .nonempty('Informe seu username'),
-  secondaryEmail: z.string(),
+  secondaryEmail: z.string()
+    .email({ message: "E-mail invalído" })
+    .optional()
+    .or(z.literal('')),
   schoolId: z.string()
     .nonempty('Selecione uma unidade de ensino'),
   courseId: z.string()
@@ -91,6 +94,20 @@ export default function StudentPage({ email, schools }: StudentPageProps) {
         isPhoneVisible,
         isWhatsapp,
       });
+
+      const cookies = parseCookies();
+      const token = cookies[constants.USER_TOKEN];
+
+      const response = await api.get('/profile', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+
+      const { profileType, profile } = response.data;
+
+      nookies.set(null, constants.USER_PROFILE_TYPE, profileType);
+      nookies.set(null, constants.USER_PROFILE, JSON.stringify(profile));
 
       push('/dashboard');
 

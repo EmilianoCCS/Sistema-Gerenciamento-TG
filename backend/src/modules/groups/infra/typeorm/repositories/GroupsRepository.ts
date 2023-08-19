@@ -32,10 +32,30 @@ export class GroupsRepository implements IGroupsRepository {
         "teachers",
         "teachers.user",
         "justifications",
+        "schedule",
       ],
     });
 
     return group;
+  }
+
+  public async findAll(): Promise<GroupEntity[]> {
+    const groups = await this.repository.find({
+      relations: [
+        "groupStudentInvites",
+        "groupStudentInvites.student.user",
+        "students",
+        "students.user",
+        "groupTeacherInvites",
+        "groupTeacherInvites.teacher.user",
+        "teachers",
+        "teachers.user",
+        "justifications",
+        "schedule",
+      ],
+    });
+
+    return groups;
   }
 
   public async create(data: ICreateGroupDTO): Promise<GroupEntity> {

@@ -40,24 +40,7 @@ export default function DashboardPage({
 
   const [teachersList, setTeachersList] = useState<Teacher[] | undefined>(teachers);
 
-
-  const { pathname, push } = useRouter();
-
-  const handleNavigateToCreateGroup = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
-    event.preventDefault();
-
-    push('/group');
-  }
-
-  const handleNavigateToSchedule = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
-    event.preventDefault();
-
-    push('/schedule');
-  }
+  const { pathname } = useRouter();
 
   const handleStudentAccept = async (
     id: string,
@@ -108,55 +91,6 @@ export default function DashboardPage({
     }
   }
 
-  const handleTeacherAccept = async (
-    id: string,
-  ) => {
-    try {
-      await api.post(`/groups/teachers/${id}/invite`);
-
-      const cookies = parseCookies();
-      const token = cookies[constants.USER_TOKEN];
-
-      const response = await api.get("/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      const { profile: { groups: groupStudents, invites: groupInvites } } = response.data;
-
-      setGroups(groupStudents);
-      setInvites(groupInvites);
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const handleTeacherDecline = async (
-    id: string,
-  ) => {
-    try {
-      await api.post(`/groups/teachers/${id}/decline`);
-
-      const cookies = parseCookies();
-      const token = cookies[constants.USER_TOKEN];
-
-      const response = await api.get("/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      const { profile: { groups: groupStudents, invites: groupInvites } } = response.data;
-
-      setGroups(groupStudents);
-      setInvites(groupInvites);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   return (
     <>
       <Navbar
@@ -174,8 +108,6 @@ export default function DashboardPage({
             <TeacherPanel
               groups={groups}
               invites={invites}
-              onAccept={handleTeacherAccept}
-              onDecline={handleTeacherDecline}
             />
           )}
           {profileType === 'student' && (
@@ -186,108 +118,6 @@ export default function DashboardPage({
               onDecline={handleStudentDecline}
             />
           )}
-          {/* <div className={styles.card}>
-
-            <div className="flex flex-1 flex-col justify-center items-center gap-4">
-              <div className='flex flex-1 flex-col justify-center items-center gap-2'>
-                <h2 className='text-2xl text-gray-700 font-medium'>
-                  Seus Grupos
-                </h2>
-                {!acceptGroup && (
-                  <span className='text-md text-gray-700'>
-                    Você ainda não está em um grupo
-                  </span>
-                )}
-              </div>
-              <div className="flex w-full justify-between items-center border rounded p-4">
-                <div className="flex flex-col w-full">
-                  <h3 className="text-lg font-semibold">
-                    Sistema de Gestão de Trabalho de Graduação
-                  </h3>
-                  <span className="text-sm text-gray-700">
-                    Resumo
-                  </span>
-                </div>
-                <div className="flex gap-2">
-                  {acceptGroup && (
-                    <>
-                      <div>
-                        <Button
-                          variant='outlineVariant'
-                        >
-                          Ver
-                        </Button>
-                      </div>
-                      <div>
-                        <Button
-                          variant='outlineVariant'
-                          onClick={handleNavigateToSchedule}
-                        >
-                          Agendar
-                        </Button>
-                      </div>
-                    </>
-                  )}
-                  {(!acceptGroup && schedule.length === 0) && (
-                    <>
-                      <div>
-                        <Button
-                          variant='outlineVariant'
-                          onClick={handleAcceptGroup}
-                        >
-                          Aceitar
-                        </Button>
-                      </div>
-                      <div>
-                        <Button
-                          variant='cancel'
-                        >
-                          Recusar
-                        </Button>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-
-              {schedule.length > 0 && (
-                <div className='flex flex-1 flex-col justify-center items-center gap-2'>
-                  <h2 className='text-2xl text-gray-700 font-medium'>
-                    Seus agendamentos
-                  </h2>
-                </div>
-              )}
-
-              {schedule.length > 0 && (
-                <div className="flex w-full justify-between items-center border rounded p-4">
-                  <div className="flex flex-col w-full">
-                    <h3 className="text-lg font-semibold">
-                      {schedule[0].grupo}
-                    </h3>
-                    <span className="text-sm text-gray-700">
-                      {schedule[0].data}
-                    </span>
-                  </div>
-                  <div className="flex gap-2">
-                    <div>
-                      <Button
-                        variant='outlineVariant'
-                      >
-                        Ver
-                      </Button>
-                    </div>
-                    <div>
-                      <Button
-                        variant='cancel'
-                      >
-                        Deletar
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div> */}
         </div>
       </main>
     </>
@@ -316,15 +146,24 @@ export const getServerSideProps: GetServerSideProps = withSSRAuth<DashboardPageP
     }
   }
 
-
-
   nookies.set(undefined, constants.USER_PROFILE_TYPE, profileType);
   nookies.set(undefined, constants.USER_PROFILE, JSON.stringify(profile));
 
   if (profileType === "coordinator") {
-    const teachersResponse = await api.get("/teachers");
+    const [enabledTeachersResponse, disabledTeachersResponse] = await Promise.all([
+      api.get("/teachers?isActivated=true"),
+      api.get("/teachers?isActivated=false"),
+    ])
 
-    const { teachers } = teachersResponse.data;
+    const { teachers: enabledTeachers } = enabledTeachersResponse.data;
+    const { teachers: disabledTeachers } = disabledTeachersResponse.data;
+
+    let teachers: Teacher[] = [];
+
+    teachers = [
+      ...enabledTeachers,
+      ...disabledTeachers,
+    ];
 
     return {
       props: {

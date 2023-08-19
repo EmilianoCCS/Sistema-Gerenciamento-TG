@@ -18,3 +18,5 @@ $ touch .prettierrc.json
 ```
 
 npm run typeorm migration:create -n -d src/shared/infra/typeorm/migrations/<migration_name>
+
+.

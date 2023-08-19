@@ -58,7 +58,7 @@ export function CoordinationPanel({ teachers }: CoordinationPanelProps) {
                 <div key={index} className={styles.teacherItem}>
                   <div className={styles.teacherInfo}>
                     <span className={styles.teacherName}>
-                      {teacher.user.fullName}
+                      {teacher.user.fullName} {teacher.isActivated ? "" : "(Desativado)"}
                     </span>
                     <span className={styles.teacherEmail}>
                       {teacher.user.email}

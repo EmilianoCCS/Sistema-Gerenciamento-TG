@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
-import z from 'zod';
+import z, { nullable } from 'zod';
 import { parseCookies } from "nookies";
 
 import styles from "./styles.module.css";
@@ -25,9 +25,18 @@ import { Checkbox } from "@/components/common/Checkbox";
 
 const registerGroupFormSchema = z.object({
   emailStudent1: z.string(),
-  emailStudent2: z.string(),
-  emailStudent3: z.string(),
-  emailStudent4: z.string(),
+  emailStudent2: z.string()
+    .email({ message: "E-mail invalído" })
+    .optional()
+    .or(z.literal('')),
+  emailStudent3: z.string()
+    .email({ message: "E-mail invalído" })
+    .optional()
+    .or(z.literal('')),
+  emailStudent4: z.string()
+    .email({ message: "E-mail invalído" })
+    .optional()
+    .or(z.literal('')),
   theme: z.string()
     .nonempty({ message: 'Tema obrigatório' }),
   justification1: z.string()
@@ -42,10 +51,7 @@ const registerGroupFormSchema = z.object({
     .refine((files) => files?.length == 1, {
       message: 'Documento obrigatório'
     }),
-  monographFile: z.any()
-    .refine((files) => files?.length == 1, {
-      message: 'Documento obrigatório'
-    }),
+  monographFile: z.any(),
   teacherId: z.string()
     .nonempty({ message: 'Orientador obrigatório' }),
 });
@@ -59,6 +65,10 @@ type GroupPageProps = {
 
 export default function GroupPage({ profile, teachers }: GroupPageProps) {
   const [acceptTerm, setAcceptTerm] = useState(false);
+
+  const [summary, setSummary] = useState("");
+  const [summaryCount, setSummaryCount] = useState(0);
+
   const { pathname, back } = useRouter();
   const {
     register,
@@ -161,6 +171,15 @@ export default function GroupPage({ profile, teachers }: GroupPageProps) {
     const { checked } = event.target;
 
     setAcceptTerm(checked);
+  }
+
+  const handleSummaryCount = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    const { value } = event.target;
+
+    setSummary(value);
+    setSummaryCount(value.length);
   }
 
   return (
@@ -304,6 +323,7 @@ export default function GroupPage({ profile, teachers }: GroupPageProps) {
                 </small>
               )}
             </div>
+
             <div className={styles.formControl}>
               <TextInput
                 id="justification2"
@@ -317,6 +337,7 @@ export default function GroupPage({ profile, teachers }: GroupPageProps) {
                 </small>
               )}
             </div>
+
             <div className={styles.formControl}>
               <TextInput
                 id="justification3"
@@ -330,6 +351,7 @@ export default function GroupPage({ profile, teachers }: GroupPageProps) {
                 </small>
               )}
             </div>
+
             <div className={styles.formControl}>
               <TextInput
                 id="justification4"
@@ -343,6 +365,7 @@ export default function GroupPage({ profile, teachers }: GroupPageProps) {
                 </small>
               )}
             </div>
+
             <div className={styles.formControl}>
               <TextInput
                 id="justification5"
@@ -361,13 +384,16 @@ export default function GroupPage({ profile, teachers }: GroupPageProps) {
               <label
                 htmlFor="summary"
               >
-                Resumo - Explicação do Thema (150 a 300 caracteres) {0}
+                Resumo - Explicação do Thema (150 a 300 caracteres) ({summaryCount})
               </label>
               <textarea
                 id="summary"
                 className={styles.textArea}
                 placeholder="Descrição/Resumo"
                 {...register('summary')}
+                value={summary}
+                onChange={handleSummaryCount}
+                maxLength={300}
               />
             </div>
 

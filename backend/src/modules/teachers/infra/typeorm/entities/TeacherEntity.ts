@@ -17,9 +17,8 @@ import { v4 as uuidV4 } from "uuid";
 import { UserEntity } from "@modules/users/infra/typeorm/entities/UserEntity";
 import { SchoolEntity } from "@modules/schools/infra/typeorm/entities/SchoolEntity";
 import { GroupTeacherInviteEntity } from "@modules/groups/infra/typeorm/entities/GroupTeacherInviteEntity";
-// import { GroupEntity } from "@modules/groups/infra/typeorm/entities/GroupEntity";
-// import { GroupTeacherEntity } from "@modules/groups/infra/typeorm/entities/GroupTeacherEntity";
 import { GroupEntity } from "@modules/groups/infra/typeorm/entities/GroupEntity";
+import { ScheduleEntity } from "@modules/schedules/infra/typeorm/entities/ScheduleEntity";
 
 @Entity({ name: "teachers" })
 export class TeacherEntity {
@@ -42,6 +41,13 @@ export class TeacherEntity {
   })
   schoolId!: string;
 
+  @Column({
+    name: "is_activated",
+    type: "boolean",
+    default: true,
+  })
+  isActivated!: boolean;
+
   @ManyToOne(() => SchoolEntity)
   @JoinColumn({ name: "school_id" })
   school!: SchoolEntity;
@@ -61,6 +67,9 @@ export class TeacherEntity {
   })
   @Expose({ name: "groups" })
   groups?: GroupEntity[];
+
+  @ManyToMany(() => ScheduleEntity, (schedule) => schedule.examiners)
+  schedules?: ScheduleEntity[];
 
   @CreateDateColumn({ name: "created_at" })
   createdAt!: Date;

@@ -55,7 +55,7 @@ export function Navbar({ pageTitle, email }: NavBarProps) {
 
   return (
     <div className={styles.container}>
-      {(pageTitle !== '/dashboard' && pageTitle !== '/teacher' && pageTitle !== '/profile' && pageTitle !== '/create-group' && pageTitle !== '/group-details' && pageTitle !== '/verify' && pageTitle !== '/student') && (
+      {(pageTitle !== '/dashboard' && pageTitle !== '/teacher' && pageTitle !== '/profile' && pageTitle !== '/create-group' && pageTitle !== '/group-details' && pageTitle !== '/verify' && pageTitle !== '/student' && pageTitle !== '/schedule') && (
         <Link href="/">
           <h2 className={styles.logo}>
             SGTG
@@ -67,7 +67,7 @@ export function Navbar({ pageTitle, email }: NavBarProps) {
         <h4 className={styles.welcome}>Bem vindo(a), {email}</h4>
       )}
 
-      {(pageTitle === '/profile' || pageTitle === '/teacher' || pageTitle === '/create-group' || pageTitle === '/group-details') && (
+      {(pageTitle === '/profile' || pageTitle === '/teacher' || pageTitle === '/create-group' || pageTitle === '/group-details' || pageTitle === '/schedule') && (
         <div className={styles.buttonContainer}>
           <Button
             variant="outline"

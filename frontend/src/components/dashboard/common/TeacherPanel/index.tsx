@@ -6,23 +6,26 @@ import { Card } from "@/components/common/Card";
 import { Button } from '@/components/common/Button';
 
 import styles from './styles.module.css';
+import { formatLongDate } from '@/utils/format-long-date';
 
 type TeacherPanelProps = {
   groups: Group[];
   invites: Invite[];
-  onAccept: (id: string) => Promise<void>;
-  onDecline: (id: string) => Promise<void>;
 };
 
-export function TeacherPanel({ groups, invites, onAccept, onDecline }: TeacherPanelProps) {
+export function TeacherPanel({ groups, invites }: TeacherPanelProps) {
   const { push } = useRouter();
 
   const handleNavigateToSchedule = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: string
   ) => {
-    event.preventDefault();
+    push(`/schedule/${id}`);
+  }
 
-    push("/schedule");
+  const handleNavigateToGroupDetails = (
+    id: string
+  ) => {
+    push(`/group/${id}`);
   }
 
   return (
@@ -50,14 +53,29 @@ export function TeacherPanel({ groups, invites, onAccept, onDecline }: TeacherPa
                 <small className={styles.groupSummary}>{item.summary}</small>
               </div>
 
-              <div className={styles.buttonActions}>
-                <Button
-                  variant='success'
-                  onClick={handleNavigateToSchedule}
-                >
-                  Agendar
-                </Button>
-              </div>
+              {item.schedule.length === 0 && (
+                <div className={styles.buttonsActions}>
+                  <Button
+                    variant='success'
+                    onClick={() => handleNavigateToSchedule(item.id)}
+                  >
+                    Agendar
+                  </Button>
+
+                  <Button
+                    variant='success'
+                    onClick={() => handleNavigateToGroupDetails(item.id)}
+                  >
+                    Ver
+                  </Button>
+                </div>
+              )}
+
+              {item.schedule.length > 0 && (
+                <div>
+                  {`${formatLongDate(new Date(item.schedule[0].date).toLocaleDateString())} ás ${item.schedule[0].hour}`}
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -68,18 +86,12 @@ export function TeacherPanel({ groups, invites, onAccept, onDecline }: TeacherPa
               <small className={styles.groupSummary}>{item.group.summary}</small>
             </div>
 
-            <div className={styles.buttonInvitesActions}>
+            <div className={styles.buttonActions}>
               <Button
                 variant='success'
-                onClick={() => onAccept(item.id)}
+                onClick={() => handleNavigateToGroupDetails(item.group.id)}
               >
-                Aceitar
-              </Button>
-              <Button
-                variant='cancel'
-                onClick={() => onDecline(item.id)}
-              >
-                Recusar
+                Ver
               </Button>
             </div>
           </div>

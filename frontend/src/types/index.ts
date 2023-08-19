@@ -13,6 +13,14 @@ type Justification = {
   text: string;
 }
 
+export type Schedule = {
+  id: string;
+  date: string;
+  hour: string;
+  group_id: string;
+  createdAt: string;
+}
+
 export type Group = {
   id: string;
   theme: string;
@@ -27,6 +35,7 @@ export type Group = {
   monographFilename: string | null;
   monographyUrl: string | null;
   createdAt: string;
+  schedule: Schedule[];
 }
 
 export type Invite = {
@@ -62,6 +71,7 @@ export type Profile = {
 export type TeacherInvite = {
   id: string;
   teacher: Teacher;
+  groupId: string;
 }
 
 export type Teacher = {
@@ -70,7 +80,7 @@ export type Teacher = {
   user: User;
   schoolId: string;
   createdAt: string;
-  isActive?: boolean;
+  isActivated?: boolean;
   groups: Group[];
 }
 

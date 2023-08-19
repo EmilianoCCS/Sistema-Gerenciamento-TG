@@ -6,6 +6,12 @@ import { ITeachersRepository } from "@modules/teachers/repositories/ITeachersRep
 // entities
 import { TeacherEntity } from "@modules/teachers/infra/typeorm/entities/TeacherEntity";
 
+interface IRequest {
+  page: number;
+  limit: number;
+  isActivated: boolean;
+}
+
 interface IResponse {
   teachers: TeacherEntity[];
 }
@@ -18,8 +24,16 @@ export class ListTeachersService {
     private readonly teachersRepository: ITeachersRepository,
   ) {}
 
-  public async execute(): Promise<IResponse> {
-    const teachers = await this.teachersRepository.findAll();
+  public async execute({
+    limit,
+    page,
+    isActivated,
+  }: IRequest): Promise<IResponse> {
+    const teachers = await this.teachersRepository.paginate({
+      page,
+      limit,
+      isActivated,
+    });
 
     return {
       teachers,

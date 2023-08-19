@@ -27,6 +27,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
+    "express-query-booleanizer": "^0.0.16",
     "handlebars": "^4.7.7",
     "jsonwebtoken": "^9.0.0",
     "mime": "^3.0.0",
